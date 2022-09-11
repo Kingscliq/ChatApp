@@ -6,9 +6,9 @@ import { useAuthActions } from '../../hooks/useAuthActions';
 import Button from '../elements/Button';
 import TextField from '../elements/TextField';
 import { v4 as uuid } from 'uuid'
-import Modal from '../widget/Modal';
-import Card from '../elements/Card';
+
 import { useMessageActions, useMessages } from '../../hooks/useMessage';
+import CreateUser from '../widget/CreateUser';
 
 interface FormValues extends FormikValues {
   message: string;
@@ -24,14 +24,23 @@ const validationSchema = yup.object({
 
 
 const ChatRoom: React.FC<{}> = () => {
-  const [loading, setLoading] = useState<boolean>(false);
 
+
+  const getUserSession = () => {
+    if (sessionStorage.getItem("newSession") === "true") {
+      return true
+    } else {
+      return false
+    }
+  }
+  const [loading, setLoading] = useState<boolean>(false);
+  const [newSession, setNewSession] = useState<boolean>(getUserSession() || true)
   const date = new Date()
   const { setMessage } = useMessageActions()
   const { setUser } = useAuthActions();
   const messages = useMessages()
 
-  console.log(messages.messages)
+
   // Initialize Formik
   const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
     useFormik<FormValues>({
@@ -49,8 +58,6 @@ const ChatRoom: React.FC<{}> = () => {
           setLoading(false)
         }, 1500)
 
-
-
         setLoading(true);
         // FIXME: Call the Hook That sends message to store 
         // setUser(values);
@@ -59,6 +66,8 @@ const ChatRoom: React.FC<{}> = () => {
 
   return (
     <section className="bottom-0 text-secondary w-full mx-auto">
+
+      {newSession && <CreateUser setNewSession={setNewSession} newSession={newSession} />}
 
       <section>
         Chat Area
