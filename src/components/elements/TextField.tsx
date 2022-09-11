@@ -51,14 +51,14 @@ const TextField: React.FC<TextFieldProps> = ({
         <div
           className={[
             className,
-            `border-[#c4c7fc93]  border-[1px] rounded bg-transparent w-full h-12 my-1 focus:border-primary ${error ? 'border-red-500' : '0'
+            `border-[#c4c7fc93]  border-[1px] rounded bg-white w-full h-12 my-1 focus:border-primary ${error ? 'border-red-500' : '0'
             }`,
           ].join(' ')}
         >
           <input
             type={type || 'text'}
             className={
-              'border outline-none rounded bg-transparent px-3 py-4 h-12 w-full focus:bg-transparent focus:border-primary transition-all duration-200 ease-in-out '
+              'border outline-none rounded bg-white px-3 py-4 h-12 w-full focus:bg-transparent focus:border-primary transition-all duration-200 ease-in-out '
             }
             placeholder={placeholder || 'this is a placeholder'}
             value={value}

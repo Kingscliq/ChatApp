@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useMessages } from '../../hooks/useMessage'
-import { Message } from '../../types/User'
+import Message from '../elements/Message'
 const Messages = () => {
 
     const { messages } = useMessages()
@@ -14,7 +14,7 @@ const Messages = () => {
     return (
         <section>
             {sortedMessages.map((message) => (
-                <p>{message.title}</p>
+                <Message />
             ))}
         </section>
     )
