@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid'
 
 import { useMessageActions, useMessages } from '../../hooks/useMessage';
 import CreateUser from '../widget/CreateUser';
+import Messages from '../widget/Messages';
 
 interface FormValues extends FormikValues {
   message: string;
@@ -83,8 +84,8 @@ const ChatRoom: React.FC<{}> = () => {
 
       {newSession && <CreateUser setNewSession={setNewSession} newSession={newSession} />}
 
-      <section>
-        Chat Area
+      <section className='p-4'>
+        <Messages />
       </section>
       <form onSubmit={(e) => {
         e.preventDefault()
