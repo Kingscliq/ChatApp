@@ -39,9 +39,11 @@ const ChatRoom: React.FC<{}> = () => {
   const { setMessage } = useMessageActions()
   const { setUser } = useAuthActions();
   const messages = useMessages()
+
   console.log(typeof getUserSession())
   console.log(newSession)
   console.log(messages)
+
   // Initialize Formik
   const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
     useFormik<FormValues>({
@@ -49,6 +51,7 @@ const ChatRoom: React.FC<{}> = () => {
       validationSchema: validationSchema,
       onSubmit: async values => {
         setLoading(true)
+
         console.log(values);
 
         const userId = sessionStorage.getItem('sessionId')
