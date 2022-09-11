@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Welcome from '../pages/Welcome';
+import Welcome from '../pages/chatroom';
 
 const AppRoutes: React.FC<{}> = () => {
   return (

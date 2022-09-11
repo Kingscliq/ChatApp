@@ -51,19 +51,9 @@ const TextField: React.FC<TextFieldProps> = ({
         <div
           className={[
             className,
-            `border-[#c4c7fc93]  border-[1px] rounded bg-transparent w-full h-12 my-1 focus:border-primary ${
-              error ? 'border-red-500' : '0'
+            `border-[#c4c7fc93]  border-[1px] rounded bg-transparent w-full h-12 my-1 focus:border-primary ${error ? 'border-red-500' : '0'
             }`,
           ].join(' ')}
-          // style={{
-          //   borderColor: error ? 'red' : success ? '#2ecc71' : '#c4c7fc93',
-          //   backgroundColor: error
-          //     ? '#fdcdc7'
-          //     : success
-          //     ? '#e11900'
-          //     : 'transparent',
-          //   color: error ? '#e11900' : '',
-          // }}
         >
           <input
             type={type || 'text'}

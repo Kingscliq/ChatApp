@@ -1,31 +1,21 @@
-import { User } from '../types/User';
+import { Users } from '../types/User';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { Step } from '../types/Step';
-
-
 interface AuthState {
-    user: User;
+    users: Users[];
 }
 
 const initialState: AuthState = {
-    user: {
-        fullName: '',
-        displayName: '',
-        workSpaceName: '',
-        workSpaceUrl: '',
-        planType: ''
-    }
+    users: []
 }
 
 export const AuthSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state: AuthState, action: PayloadAction<User>) => {
-            state.user = { ...state.user, ...action.payload }
+        setUser: (state: AuthState, action: PayloadAction<Users>) => {
+            state.users = [...state.users, action.payload]
         },
-
     },
 });
 

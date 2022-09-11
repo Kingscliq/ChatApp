@@ -3,7 +3,7 @@ import logger from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
 import type { WebStorage } from 'redux-persist';
 import { persistReducer } from 'redux-persist';
-import Stepper from '../slices/stepperSlice';
+import Message from '../slices/messageSlice';
 import Auth from '../slices/authSlice';
 
 interface PersitConfig {
@@ -17,7 +17,7 @@ export const persistConfig: PersitConfig = {
 };
 
 const rootReducer = combineReducers({
-  stepper: Stepper.reducer,
+  message: Message.reducer,
   user: Auth.reducer
 });
 

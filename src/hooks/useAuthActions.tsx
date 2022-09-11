@@ -3,16 +3,15 @@ import { setUser } from '../slices/authSlice';
 
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store/types';
-import { User } from '../types/User';
+import { Users } from '../types/User';
 
 export const user = (state: RootState) => state.user;
 
 export const useAuthActions = () => {
   const dispatch = useAppDispatch();
-
-  //   Set user State
+  // Set user State
   return {
-    setUser: useCallback((user: User) => dispatch(setUser(user)), [dispatch]),
+    setUser: useCallback((user: Users) => dispatch(setUser(user)), [dispatch]),
   };
 };
 

@@ -1,15 +1,22 @@
 import React from 'react';
-import { logo } from '../../assets/icons';
-import Stepper from '../widget/Stepper';
+
 const Header: React.FC<{}> = () => {
+
   return (
-    <div className="mb-6">
-      <div className="mx-auto w-full flex items-center justify-center mb-8">
-        <div className="flex items-center justify-center my-6  h-auto md:w-28 w-20">
-          <img src={logo} alt="" className="w-full" />
+    <div className="mb-6 bg-primary">
+      <div className="mx-auto w-full flex items-center justify-center mb-8 ">
+        <div className="flex items-center my-4  h-auto md:w-28 w-20 ">
+          <div>
+            <figure>
+              <img src="" alt="" />
+            </figure>
+            <div>
+              <h4>Username</h4>
+              <small>status</small>
+            </div>
+          </div>
         </div>
       </div>
-      <Stepper />
     </div>
   );
 };
