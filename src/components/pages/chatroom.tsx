@@ -1,5 +1,5 @@
 import { FormikValues, useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useAuthActions } from '../../hooks/useAuthActions';
@@ -22,25 +22,26 @@ const validationSchema = yup.object({
   message: yup.string().required('Please type a message'),
 });
 
-
 const ChatRoom: React.FC<{}> = () => {
 
-
   const getUserSession = () => {
-    if (sessionStorage.getItem("newSession") === "true") {
+    if (sessionStorage.getItem("newSession") === 'true') {
       return true
     } else {
       return false
     }
   }
+
+
   const [loading, setLoading] = useState<boolean>(false);
   const [newSession, setNewSession] = useState<boolean>(getUserSession() || true)
   const date = new Date()
   const { setMessage } = useMessageActions()
   const { setUser } = useAuthActions();
   const messages = useMessages()
-
-
+  console.log(typeof getUserSession())
+  console.log(newSession)
+  console.log(messages)
   // Initialize Formik
   const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
     useFormik<FormValues>({
@@ -49,9 +50,15 @@ const ChatRoom: React.FC<{}> = () => {
       onSubmit: async values => {
         setLoading(true)
         console.log(values);
+
+        const userId = sessionStorage.getItem('sessionId')
+
+        console.log(userId)
+
         const formData = {
-          messageId: uuid(), title: values.message, createdAt: date, createdBy: "username"
+          messageId: uuid(), title: values.message, createdAt: date, createdBy: userId as string
         }
+
         console.log(formData)
         setTimeout(() => {
           setMessage(formData)
@@ -64,6 +71,10 @@ const ChatRoom: React.FC<{}> = () => {
       },
     });
 
+
+  useEffect(() => {
+
+  }, [newSession])
   return (
     <section className="bottom-0 text-secondary w-full mx-auto">
 
@@ -85,7 +96,6 @@ const ChatRoom: React.FC<{}> = () => {
           </div>
         </div>
       </form>
-
 
     </section>
   );

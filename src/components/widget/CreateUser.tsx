@@ -25,15 +25,18 @@ const CreateUser: React.FC<UserSession> = ({ setNewSession, newSession }) => {
     const validationSchema = yup.object({
         username: yup.string().required('Please type a Username'),
     });
-
-    // const { setUser } = use
+    const [loading, setLoading] = useState<boolean>(false);
     const { setUser } = useAuthActions()
+    const resetSession = async () => {
+        await setNewSession(false)
+        sessionStorage.setItem("newSession", "false")
+    }
+
     const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
         useFormik<FormikValues>({
             initialValues,
             validationSchema: validationSchema,
             onSubmit: async values => {
-                const [loading, setLoading] = useState<boolean>(false);
                 setLoading(true)
 
                 // console.log(values);
@@ -46,12 +49,12 @@ const CreateUser: React.FC<UserSession> = ({ setNewSession, newSession }) => {
 
                 // FIXME: Call the Hook That creates a user session
                 sessionStorage.setItem("sessionId", formData.userId)
-                sessionStorage.setItem("newSession", newSession as unknown as string)
 
                 // Call a hook to add user to store
                 setTimeout(() => {
                     setUser(formData)
                     setLoading(false)
+                    resetSession()
                 }, 1500)
 
             },
@@ -59,10 +62,14 @@ const CreateUser: React.FC<UserSession> = ({ setNewSession, newSession }) => {
     return (
 
         <Modal>
-            <form>
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                handleSubmit()
+            }}>
                 <Card>
-                    <TextField placeholder='Enter Name' value={values.username} onChange={handleChange} />
-                    <Button className='bg-primary text-white' label='Start Chat' type='submit' />
+                    <h3 className='font-medium mb-3 text-lg text-center'>Start Chat Session</h3>
+                    <TextField placeholder='Enter Name' name='username' value={values.username} onChange={handleChange} error={!!(errors.username && touched.username)} />
+                    <Button className='bg-primary text-white' label='Start Chat' type='submit' loading={loading} />
                 </Card>
             </form>
         </Modal>
