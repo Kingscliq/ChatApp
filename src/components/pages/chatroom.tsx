@@ -1,6 +1,5 @@
 import { FormikValues, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useAuthActions } from '../../hooks/useAuthActions';
 import Button from '../elements/Button';
@@ -33,18 +32,17 @@ const ChatRoom: React.FC<{}> = () => {
     }
   }
 
-
   const [loading, setLoading] = useState<boolean>(false);
-  const [newSession, setNewSession] = useState<boolean>(getUserSession() || true)
+
+  // const [newSession, setNewSession] = useState<boolean>(getUserSession() || true)
   const date = new Date()
   const { setMessage } = useMessageActions()
   const { setUser } = useAuthActions();
   const messages = useMessages()
+  const newSession = sessionStorage.getItem('newSession')
 
-  console.log(typeof getUserSession())
+
   console.log(newSession)
-  console.log(messages)
-
   // Initialize Formik
   const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
     useFormik<FormValues>({
@@ -56,14 +54,14 @@ const ChatRoom: React.FC<{}> = () => {
         console.log(values);
 
         const userId = sessionStorage.getItem('sessionId')
+        const username = sessionStorage.getItem('username')
 
         console.log(userId)
 
         const formData = {
-          messageId: uuid(), title: values.message, createdAt: date, createdBy: userId as string
+          messageId: uuid(), title: values.message, createdAt: date, createdBy: userId as string, createdByName: username as string
         }
 
-        console.log(formData)
         setTimeout(() => {
           setMessage(formData)
           setLoading(false)
@@ -75,14 +73,15 @@ const ChatRoom: React.FC<{}> = () => {
       },
     });
 
-
   useEffect(() => {
-
+    console.log(newSession)
   }, [newSession])
+
+  console.log(loading)
   return (
     <section className="bottom-0 text-secondary w-full mx-auto">
 
-      {newSession && <CreateUser setNewSession={setNewSession} newSession={newSession} />}
+      {newSession === 'true' || newSession === null ? <CreateUser /> : null}
 
       <section className='p-4'>
         <Messages />
@@ -100,7 +99,6 @@ const ChatRoom: React.FC<{}> = () => {
           </div>
         </div>
       </form>
-
     </section>
   );
 };

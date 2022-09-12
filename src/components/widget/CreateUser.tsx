@@ -10,10 +10,11 @@ import { useAuthActions } from '../../hooks/useAuthActions'
 
 
 interface UserSession {
-    setNewSession: React.Dispatch<React.SetStateAction<string>> | any;
-    newSession: boolean
+    // setNewSession: React.Dispatch<React.SetStateAction<string>> | any;
+    // newSession: boolean
 }
-const CreateUser: React.FC<UserSession> = ({ setNewSession, newSession }) => {
+
+const CreateUser: React.FC<UserSession> = ({ }) => {
     interface FormValues extends FormikValues {
         username: string;
     }
@@ -25,10 +26,11 @@ const CreateUser: React.FC<UserSession> = ({ setNewSession, newSession }) => {
     const validationSchema = yup.object({
         username: yup.string().required('Please type a Username'),
     });
+
     const [loading, setLoading] = useState<boolean>(false);
     const { setUser } = useAuthActions()
     const resetSession = async () => {
-        await setNewSession(false)
+        // await setNewSession(false)
         sessionStorage.setItem("newSession", "false")
     }
 
@@ -38,17 +40,16 @@ const CreateUser: React.FC<UserSession> = ({ setNewSession, newSession }) => {
             validationSchema: validationSchema,
             onSubmit: async values => {
                 setLoading(true)
-
                 // console.log(values);
                 const formData = {
                     userId: uuid(), username: values.username,
                 }
-
                 // console.log(formData)
                 setLoading(true);
 
                 // FIXME: Call the Hook That creates a user session
                 sessionStorage.setItem("sessionId", formData.userId)
+                sessionStorage.setItem("username", formData.username)
 
                 // Call a hook to add user to store
                 setTimeout(() => {

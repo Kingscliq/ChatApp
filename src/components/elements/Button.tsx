@@ -39,7 +39,7 @@ const Button: React.FC<ButtonProps> = ({
       ].join(' ')}
       style={{
         cursor: loading || disabled ? 'not-allowed' : '0',
-        opacity: loading || disabled ? '.68' : 'nill',
+        opacity: loading || disabled ? '.68' : '1',
       }}
     >
       {loading ? (
