@@ -15,8 +15,8 @@ const Header: React.FC<{}> = () => {
             <h4>{username}</h4>
           </div>
         </div>
-        <div>
-          <AiFillMessage />
+        <div className='p-6'>
+          <AiFillMessage size={40} />
         </div>
       </div>
     </div>
