@@ -32,7 +32,6 @@ const getMiddlewares = (getDefaultMiddlewares: any) => {
   return [...getDefaultMiddlewares(), createStateSyncMiddleware(), logger];
 };
 
-
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getMiddlewares,

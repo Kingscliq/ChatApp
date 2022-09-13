@@ -53,11 +53,8 @@ const ChatRoom: React.FC<{}> = () => {
         setTimeout(() => {
           setMessage(formData)
           setLoading(false)
+          resetForm()
         }, 1500)
-
-        setLoading(false);
-        resetForm()
-
 
       },
     });
@@ -69,7 +66,7 @@ const ChatRoom: React.FC<{}> = () => {
   return (
     <section className="bottom-0 text-secondary w-full mx-auto">
 
-      {newSession === 'true' || newSession === null ? <CreateUser /> : null}
+      {newSession === 'true' || newSession === null && <CreateUser />}
 
       <section className='p-4'>
         <Messages />
