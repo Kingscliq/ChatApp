@@ -30,11 +30,10 @@ const CreateUser: React.FC<UserSession> = ({ }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const { setUser } = useAuthActions()
     const resetSession = async () => {
-        // await setNewSession(false)
         sessionStorage.setItem("newSession", 'false')
     }
 
-    const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
+    const { errors, values, touched, handleChange, handleSubmit } =
         useFormik<FormikValues>({
             initialValues,
             validationSchema: validationSchema,

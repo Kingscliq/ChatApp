@@ -10,13 +10,13 @@ export const message = (state: RootState) => state.message;
 
 export const useMessageActions = () => {
     const dispatch = useAppDispatch();
-    // Set User State
+    // Dispatch message to store
     return {
         setMessage: useCallback((message: Message) => dispatch(setMessage(message)), [dispatch]),
     };
 };
 
-// get auth State
+// get Messages from store
 export const useMessages = () => {
     return useAppSelector(message);
 };

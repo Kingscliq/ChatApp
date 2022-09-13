@@ -10,8 +10,8 @@ interface MessageProp {
 
 const Message: React.FC<MessageProp> = ({ order, title, username, date }) => {
     return (
-        <section className={`flex items-center justify-between gap-4 ${order == "1" ? "flex-row-reverse" : null}`}>
-            <section className={`text-gray-100 font-medium lg:w-[60%] w-full rounded-lg m-3 px-2 py-2 flex flex-col ${order == "1" ? "bg-primary order-1" : "bg-gray-200 text-black order-2"}`}>
+        <section className={`flex items-center justify-between gap-4  ${order == "2" ? "flex-row-reverse" : null}`}>
+            <section className={`text-gray-100 font-medium lg:w-[60%] w-full rounded-lg m-3 px-2 py-2 flex flex-col ${order == "1" ? "bg-primary order-1" : "  bg-gray-200 text-black order-2"}`}>
                 <div className='mb-2'>
                     <small className='text-xs text-[#DB803B]'>{username}</small>
                 </div>

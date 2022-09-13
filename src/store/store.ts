@@ -28,11 +28,9 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const getMiddlewares = (getDefaultMiddlewares: any) => {
-  if (process.env.NODE_ENV !== 'development') return getDefaultMiddlewares();
+  if (process.env.NODE_ENV !== 'development') return [...getDefaultMiddlewares(), createStateSyncMiddleware()];
   return [...getDefaultMiddlewares(), createStateSyncMiddleware(), logger];
 };
-
-
 
 export const store = configureStore({
   reducer: persistedReducer,
