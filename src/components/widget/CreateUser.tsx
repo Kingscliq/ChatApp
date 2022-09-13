@@ -31,7 +31,7 @@ const CreateUser: React.FC<UserSession> = ({ }) => {
     const { setUser } = useAuthActions()
     const resetSession = async () => {
         // await setNewSession(false)
-        sessionStorage.setItem("newSession", "false")
+        sessionStorage.setItem("newSession", 'false')
     }
 
     const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
@@ -50,14 +50,15 @@ const CreateUser: React.FC<UserSession> = ({ }) => {
                 // FIXME: Call the Hook That creates a user session
                 sessionStorage.setItem("sessionId", formData.userId)
                 sessionStorage.setItem("username", formData.username)
+                sessionStorage.setItem("username", formData.username)
 
                 // Call a hook to add user to store
                 setTimeout(() => {
                     setUser(formData)
                     setLoading(false)
-                    resetSession()
                 }, 1500)
-
+                resetSession()
+                window.location.reload()
             },
         });
     return (

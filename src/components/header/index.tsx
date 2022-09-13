@@ -2,20 +2,17 @@ import React from 'react';
 import { AiFillMessage } from 'react-icons/ai'
 
 const Header: React.FC<{}> = () => {
-
   const username = sessionStorage.getItem('username')
 
   return (
     <div className="mb-6 bg-primary text-white">
       <div className="mx-auto w-full flex items-center justify-between mb-8 ">
         <div className="flex items-center my-2  h-auto md:w-28 w-20 p-2">
-          <div className='h-24 w-24 rounded-full bg-green-50'>
-            <img src="" alt="" />
-            {/* {username?.split()} */}
+          <div className='h-[30px] w-[30px] rounded-full bg-green-50 flex items-center justify-center'>
+            <p className='text-black'>{username?.slice(0, 1).toUpperCase()}</p>
           </div>
-          <div>
+          <div className='ml-4'>
             <h4>{username}</h4>
-            <small>status</small>
           </div>
         </div>
         <div>

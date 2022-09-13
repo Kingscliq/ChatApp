@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { BiCheckDouble } from 'react-icons/bi'
 
 interface MessageProp {
     order: string;
@@ -20,8 +20,8 @@ const Message: React.FC<MessageProp> = ({ order, title, username, date }) => {
                 <p>{title}</p>
                 <div className='flex items-center justify-between'>
                     <div></div>
-                    <div>
-                        <small className={`text-xs  ${order == "1" ? " text-slate-200" : "text-gray-600"}`}>{date}</small>
+                    <div className='flex items-center'>
+                        <small className={`text-xs  ${order == "1" ? " text-slate-200" : "text-gray-600"}`}>{date}</small> <span><BiCheckDouble /></span>
                     </div>
                 </div>
             </section>
