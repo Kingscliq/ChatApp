@@ -1,3 +1,4 @@
+// Ts config
 {
   "compilerOptions": {
     "composite": true,
