@@ -33,7 +33,6 @@ const getMiddlewares = (getDefaultMiddlewares: any) => {
 };
 
 
-
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getMiddlewares,
