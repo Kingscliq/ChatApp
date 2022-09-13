@@ -5,6 +5,10 @@ import type { WebStorage } from 'redux-persist';
 import { persistReducer } from 'redux-persist';
 import Message from '../slices/messageSlice';
 import Auth from '../slices/authSlice';
+import {
+  createStateSyncMiddleware,
+  initMessageListener,
+} from "redux-state-sync";
 
 interface PersitConfig {
   key: string;
@@ -25,10 +29,15 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const getMiddlewares = (getDefaultMiddlewares: any) => {
   if (process.env.NODE_ENV !== 'development') return getDefaultMiddlewares();
-  return [...getDefaultMiddlewares(), logger];
+  return [...getDefaultMiddlewares(), createStateSyncMiddleware(), logger];
 };
+
+
 
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getMiddlewares,
 });
+
+
+initMessageListener(store);

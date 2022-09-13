@@ -5,5 +5,5 @@ export interface Users {
 }[]
 
 export interface Message {
-    messageId: string, title: string, createdAt: Date, createdBy: string
+    messageId: string, title: string, createdAt: Date, createdBy: string, createdByName: string
 }[]

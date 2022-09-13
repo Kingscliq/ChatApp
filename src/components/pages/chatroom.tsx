@@ -1,6 +1,5 @@
 import { FormikValues, useFormik } from 'formik';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useAuthActions } from '../../hooks/useAuthActions';
 import Button from '../elements/Button';
@@ -9,6 +8,7 @@ import { v4 as uuid } from 'uuid'
 
 import { useMessageActions, useMessages } from '../../hooks/useMessage';
 import CreateUser from '../widget/CreateUser';
+import Messages from '../widget/Messages';
 
 interface FormValues extends FormikValues {
   message: string;
@@ -22,25 +22,27 @@ const validationSchema = yup.object({
   message: yup.string().required('Please type a message'),
 });
 
-
 const ChatRoom: React.FC<{}> = () => {
 
-
   const getUserSession = () => {
-    if (sessionStorage.getItem("newSession") === "true") {
+    if (sessionStorage.getItem("newSession") === 'true') {
       return true
     } else {
       return false
     }
   }
+
   const [loading, setLoading] = useState<boolean>(false);
-  const [newSession, setNewSession] = useState<boolean>(getUserSession() || true)
+
+  // const [newSession, setNewSession] = useState<boolean>(getUserSession() || true)
   const date = new Date()
   const { setMessage } = useMessageActions()
   const { setUser } = useAuthActions();
   const messages = useMessages()
+  const newSession = sessionStorage.getItem('newSession')
 
 
+  console.log(newSession)
   // Initialize Formik
   const { errors, values, touched, handleChange, handleSubmit, handleBlur } =
     useFormik<FormValues>({
@@ -48,11 +50,18 @@ const ChatRoom: React.FC<{}> = () => {
       validationSchema: validationSchema,
       onSubmit: async values => {
         setLoading(true)
+
         console.log(values);
+
+        const userId = sessionStorage.getItem('sessionId')
+        const username = sessionStorage.getItem('username')
+
+        console.log(userId)
+
         const formData = {
-          messageId: uuid(), title: values.message, createdAt: date, createdBy: "username"
+          messageId: uuid(), title: values.message, createdAt: date, createdBy: userId as string, createdByName: username as string
         }
-        console.log(formData)
+
         setTimeout(() => {
           setMessage(formData)
           setLoading(false)
@@ -64,13 +73,18 @@ const ChatRoom: React.FC<{}> = () => {
       },
     });
 
+  useEffect(() => {
+    console.log(newSession)
+  }, [newSession])
+
+  console.log(loading)
   return (
     <section className="bottom-0 text-secondary w-full mx-auto">
 
-      {newSession && <CreateUser setNewSession={setNewSession} newSession={newSession} />}
+      {newSession === 'true' || newSession === null ? <CreateUser /> : null}
 
-      <section>
-        Chat Area
+      <section className='p-4'>
+        <Messages />
       </section>
       <form onSubmit={(e) => {
         e.preventDefault()
@@ -85,8 +99,6 @@ const ChatRoom: React.FC<{}> = () => {
           </div>
         </div>
       </form>
-
-
     </section>
   );
 };
