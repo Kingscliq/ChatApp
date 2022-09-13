@@ -1,7 +1,6 @@
 import { FormikValues, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { useAuthActions } from '../../hooks/useAuthActions';
 import Button from '../elements/Button';
 import TextField from '../elements/TextField';
 import { v4 as uuid } from 'uuid'
@@ -10,14 +9,17 @@ import { useMessageActions, useMessages } from '../../hooks/useMessage';
 import CreateUser from '../widget/CreateUser';
 import Messages from '../widget/Messages';
 
+
 interface FormValues extends FormikValues {
   message: string;
 }
 
+// Initialize Messages
 const initialValues: FormValues = {
   message: ""
 };
 
+// Message form validation
 const validationSchema = yup.object({
   message: yup.string().required('Please type a message'),
 });
@@ -38,7 +40,6 @@ const ChatRoom: React.FC<{}> = () => {
       validationSchema: validationSchema,
       onSubmit: async values => {
         setLoading(true)
-
 
         const userId = sessionStorage.getItem('sessionId')
         const username = sessionStorage.getItem('username')
